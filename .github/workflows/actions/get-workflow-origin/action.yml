@@ -2,10 +2,10 @@ name: "Get workflow origin"
 description: "Get PR number and target branch from pull_request or workflow_run"
 
 outputs:
-  pr_number:
+  pullRequestNumber:
     description: "Pull request number"
     value: ${{ steps.compute.outputs.pr_number }}
-  target_branch:
+  targetBranch:
     description: "Target (base) branch"
     value: ${{ steps.compute.outputs.target_branch }}
 
