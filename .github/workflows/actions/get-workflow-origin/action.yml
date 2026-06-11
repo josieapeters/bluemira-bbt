@@ -19,12 +19,15 @@ runs:
           let pullRequestNumber = null;
           let targetBranch = null;
 
+          core.info(`Event type: ${event.pull_request ? 'pull_request' : 'workflow_run'}`);
+
           if (event.pull_request) {
             prNumber = event.pull_request.number;
             targetBranch = event.pull_request.base.ref;
           }
           else if (event.workflow_run) {
             const head_sha = event.workflow_run.head_commit.id;
+            core.info(`Looking for PR with commit: ${event.workflow_run.head_commit.id}`);
 
             // Find PR linked to the commit that triggered the workflow
             const prs = await github.rest.repos.listPullRequestsAssociatedWithCommit({
@@ -32,6 +35,8 @@ runs:
               owner: context.repo.owner,
               repo: context.repo.repo,
             });
+
+            core.info(`Found ${prs.data.length} PRs`);
 
             let pr;
             if (prs.data.length > 0) {
@@ -46,3 +51,4 @@ runs:
 
           core.setOutput("pr_number", pullRequestNumber);
           core.setOutput("target_branch", targetBranch);
+          core.info(`Outputs set - PR: ${pullRequestNumber}, Branch: ${targetBranch}`);
