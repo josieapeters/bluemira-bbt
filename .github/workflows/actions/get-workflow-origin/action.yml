@@ -27,10 +27,10 @@ runs:
             const run_id = event.workflow_run.id;
 
             // Find PR linked to the workflow run
-            const prs = await github.rest.actions.listWorkflowRunPullRequests({
+            const prs = await github.rest.actions.listPullRequestsAssociatedWithCommit({
+              commit_sha: context.sha,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              run_id
             });
 
             if (prs.data.length > 0) {
