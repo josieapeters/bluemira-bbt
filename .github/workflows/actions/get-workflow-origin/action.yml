@@ -55,6 +55,6 @@ runs:
             core.setOutput("pr_number", pullRequestNumber);
             core.setOutput("target_branch", targetBranch);
             core.info(`Outputs set - PR: ${pullRequestNumber}, Branch: ${targetBranch}`);
-        } catch (error) {
-          core.setFailed(`Script failed: ${error.message}`);
-        }
+          } catch (error) {
+            core.setFailed(`Script failed: ${error.message}`);
+          }
