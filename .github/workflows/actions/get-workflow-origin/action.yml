@@ -26,7 +26,7 @@ runs:
           else if (event.workflow_run) {
             const run_id = event.workflow_run.id;
 
-            // Find PR linked to the workflow run
+            // Find PR linked to the commit that triggered the workflow
             const prs = await github.rest.repos.listPullRequestsAssociatedWithCommit({
               commit_sha: context.sha,
               owner: context.repo.owner,
@@ -37,7 +37,7 @@ runs:
               const pr = prs.data[0];
             }
             else {
-              const pr = prs.data;
+              const pr = prs;
             }
             pullRequestNumber = pr.number;
             targetBranch = pr.base.ref
