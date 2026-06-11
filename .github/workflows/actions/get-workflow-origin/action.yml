@@ -19,8 +19,8 @@ runs:
           try {
             const event = context.payload;
 
-            let pullRequestNumber = null;
-            let targetBranch = null;
+            let pr_number = null;
+            let target_branch = null;
 
             core.info(`Event type: ${event.pull_request ? 'pull_request' : 'workflow_run'}`);
 
