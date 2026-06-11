@@ -25,8 +25,8 @@ runs:
             core.info(`Event type: ${event.pull_request ? 'pull_request' : 'workflow_run'}`);
 
             if (event.pull_request) {
-              pullRequestNumber = event.pullRequestNumber;
-              targetBranch = event.pull_request.base.ref;
+              pr_number = event.pull_request.number;
+              target_branch = event.pull_request.base.ref;
             }
             else if (event.workflow_run) {
               const head_sha = event.workflow_run.head_commit.id;
@@ -44,17 +44,17 @@ runs:
               let pr;
               if (prs.data.length > 0) {
                 pr = prs.data[0];
-                pullRequestNumber = pr.number;
-                targetBranch = pr.base.ref
+                pr_number = pr.number;
+                target_branch = pr.base.ref;
               }
               else {
                 core.warning(`No PR found for commit ${context.sha}`);
               }
             }
 
-            core.setOutput("pr_number", pullRequestNumber);
-            core.setOutput("target_branch", targetBranch);
-            core.info(`Outputs set - PR: ${pullRequestNumber}, Branch: ${targetBranch}`);
+            core.setOutput("pullRequestNumber", pr_number);
+            core.setOutput("targetBranch", target_branch);
+            core.info(`Outputs set - PR: ${pr_number}, Branch: ${target_branch}`);
           } catch (error) {
             core.setFailed(`Script failed: ${error.message}`);
           }
