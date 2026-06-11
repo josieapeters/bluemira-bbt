@@ -16,41 +16,45 @@ runs:
       uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
       with:
         script: |
-          const event = context.payload;
+          try {
+            const event = context.payload;
 
-          let pullRequestNumber = null;
-          let targetBranch = null;
+            let pullRequestNumber = null;
+            let targetBranch = null;
 
-          core.info(`Event type: ${event.pull_request ? 'pull_request' : 'workflow_run'}`);
+            core.info(`Event type: ${event.pull_request ? 'pull_request' : 'workflow_run'}`);
 
-          if (event.pull_request) {
-            prNumber = event.pullRequestNumber;
-            targetBranch = event.pull_request.base.ref;
-          }
-          else if (event.workflow_run) {
-            const head_sha = event.workflow_run.head_commit.id;
-            core.info(`Looking for PR with commit: ${event.workflow_run.head_commit.id}`);
-
-            // Find PR linked to the commit that triggered the workflow
-            const prs = await github.rest.repos.listPullRequestsAssociatedWithCommit({
-              commit_sha: head_sha,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-            });
-
-            core.info(`Found ${prs.data.length} PRs`);
-
-            let pr;
-            if (prs.data.length > 0) {
-              pr = prs.data[0];
-              pullRequestNumber = pr.number;
-              targetBranch = pr.base.ref
+            if (event.pull_request) {
+              pullRequestNumber = event.pullRequestNumber;
+              targetBranch = event.pull_request.base.ref;
             }
-            else {
-              core.warning(`No PR found for commit ${context.sha}`);
-            }
-          }
+            else if (event.workflow_run) {
+              const head_sha = event.workflow_run.head_commit.id;
+              core.info(`Looking for PR with commit: ${event.workflow_run.head_commit.id}`);
 
-          core.setOutput("pr_number", pullRequestNumber);
-          core.setOutput("target_branch", targetBranch);
-          core.info(`Outputs set - PR: ${pullRequestNumber}, Branch: ${targetBranch}`);
+              // Find PR linked to the commit that triggered the workflow
+              const prs = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                commit_sha: head_sha,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+              });
+
+              core.info(`Found ${prs.data.length} PRs`);
+
+              let pr;
+              if (prs.data.length > 0) {
+                pr = prs.data[0];
+                pullRequestNumber = pr.number;
+                targetBranch = pr.base.ref
+              }
+              else {
+                core.warning(`No PR found for commit ${context.sha}`);
+              }
+            }
+
+            core.setOutput("pr_number", pullRequestNumber);
+            core.setOutput("target_branch", targetBranch);
+            core.info(`Outputs set - PR: ${pullRequestNumber}, Branch: ${targetBranch}`);
+        } catch (error) {
+          core.setFailed(`Script failed: ${error.message}`);
+        }
