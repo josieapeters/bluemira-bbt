@@ -24,7 +24,7 @@ runs:
           core.info(`Event type: ${event.pull_request ? 'pull_request' : 'workflow_run'}`);
 
           if (event.pull_request) {
-            prNumber = event.pull_request.number;
+            prNumber = event.pullRequestNumber;
             targetBranch = event.pull_request.base.ref;
           }
           else if (event.workflow_run) {
@@ -42,7 +42,7 @@ runs:
 
             let pr;
             if (prs.data.length > 0) {
-              const pr = prs.data[0];
+              pr = prs.data[0];
               pullRequestNumber = pr.number;
               targetBranch = pr.base.ref
             }
