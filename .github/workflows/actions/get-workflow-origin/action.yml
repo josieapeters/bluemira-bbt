@@ -24,23 +24,24 @@ runs:
             targetBranch = event.pull_request.base.ref;
           }
           else if (event.workflow_run) {
-            const run_id = event.workflow_run.id;
+            const head_sha = event.workflow_run.head_commit.id;
 
             // Find PR linked to the commit that triggered the workflow
             const prs = await github.rest.repos.listPullRequestsAssociatedWithCommit({
-              commit_sha: context.sha,
+              commit_sha: head_sha,
               owner: context.repo.owner,
               repo: context.repo.repo,
             });
 
+            let pr;
             if (prs.data.length > 0) {
               const pr = prs.data[0];
+              pullRequestNumber = pr.number;
+              targetBranch = pr.base.ref
             }
             else {
-              const pr = prs;
+              core.warning(`No PR found for commit ${context.sha}`);
             }
-            pullRequestNumber = pr.number;
-            targetBranch = pr.base.ref
           }
 
           core.setOutput("pr_number", pullRequestNumber);
