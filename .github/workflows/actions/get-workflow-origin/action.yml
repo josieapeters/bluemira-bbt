@@ -35,9 +35,12 @@ runs:
 
             if (prs.data.length > 0) {
               const pr = prs.data[0];
-              pullRequestNumber = pr.number;
-              targetBranch = pr.base.ref;
             }
+            else {
+              const pr = prs.data;
+            }
+            pullRequestNumber = pr.number;
+            targetBranch = pr.base.ref
           }
 
           core.setOutput("pr_number", pullRequestNumber);
