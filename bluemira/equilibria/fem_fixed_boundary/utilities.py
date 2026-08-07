@@ -11,7 +11,6 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-import dolfinx
 import matplotlib.pyplot as plt
 import numpy as np
 import numpy.typing as npt
@@ -30,6 +29,7 @@ from bluemira.optimisation import optimise
 from bluemira.utilities.tools import is_num
 
 if TYPE_CHECKING:
+    import dolfinx
     from collections.abc import Callable, Iterable
     from os import PathLike
 
@@ -193,6 +193,7 @@ def find_flux_surface(
     x_axis, z_axis = find_magnetic_axis(lambda x: -psi_norm_func(x), mesh=mesh)
 
     if mesh:
+        import dolfinx
         tdim = mesh.topology.dim
         num_cells = (
             mesh.topology.index_map(tdim).size_local
@@ -273,6 +274,7 @@ def get_mesh_boundary(mesh: dolfinx.mesh.Mesh) -> tuple[np.ndarray, np.ndarray]:
     zbdry:
         z coordinates of the boundary
     """
+    import dolfinx
     mesh.topology.create_entities(mesh.topology.dim - 1)
     mesh.topology.create_entities(mesh.topology.dim - 2)
 
@@ -489,6 +491,7 @@ def find_magnetic_axis(
     Position vector (2) of the magnetic axis [m]
     """
     if mesh:
+        import dolfinx
         points = mesh.geometry.x
         psi_array = psi_func(points)
         psi_max_arg = np.argmax(psi_array)
@@ -559,7 +562,8 @@ def refine_mesh(
     :
         Refined mesh
     """
-
+    import dolfinx
+    
     def inside_delta(xs):
         return np.linalg.norm(xs[:2, :].T - refine_point[:2], axis=1) < distance
 
