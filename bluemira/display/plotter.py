@@ -15,7 +15,6 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import TYPE_CHECKING, Any, ClassVar
 
-import dolfinx
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import cm
@@ -41,6 +40,8 @@ from bluemira.utilities.tools import flatten_iterable
 
 if TYPE_CHECKING:
     from collections.abc import Callable, Iterable, Iterator
+
+    import dolfinx
 
     import numpy.typing as npt
     from matplotlib.axes import Axes
@@ -1265,6 +1266,7 @@ def plot_dolfinx_2d_mesh_plt(
     ValueError
         If the mesh is not a triangular mesh.
     """
+    import dolfinx
     # Extract node coordinates
     nodes = mesh.geometry.x[:, :2]  # Use only x and y
 

@@ -15,10 +15,9 @@ from collections.abc import Callable, Iterable
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
-import dolfinx
 import matplotlib.pyplot as plt
 import numpy as np
-from dolfinx.fem import Expression
+
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from ufl import as_vector
 
@@ -37,6 +36,7 @@ from bluemira.utilities.plot_tools import make_gif, save_figure
 
 if TYPE_CHECKING:
     import numpy.typing as npt
+    import dolfinx
     from matplotlib.figure import Figure
 
 
@@ -45,7 +45,7 @@ class FixedBoundaryEquilibrium:
     """
     Simple minimal dataclass for a fixed boundary equilibrium.
     """
-
+    import dolfinx
     # Solver information
     mesh: dolfinx.mesh.Mesh
     psi: Callable[[npt.ArrayLike], float | npt.NDArray[np.float64]]
@@ -186,6 +186,8 @@ class FemGradShafranovFixedBoundary(FemMagnetostatic2d):
         Calculate the gradients of psi at a point
         """  # noqa: DOC201
         if self._grad_psi is None:
+            import dolfinx
+            from dolfinx.fem import Expression
             w = dolfinx.fem.functionspace(self.mesh, ("P", 1, (self.mesh.geometry.dim,)))
 
             self._grad_psi = BluemiraFemFunction(w)
