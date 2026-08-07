@@ -10,18 +10,19 @@ Solver for a 2D magnetostatic problem with cylindrical symmetry
 
 from collections.abc import Iterable
 
-import dolfinx.fem
 import numpy as np
 from basix.ufl import element
-from dolfinx.fem import Expression, dirichletbc, functionspace, locate_dofs_topological
-from dolfinx.fem.petsc import LinearProblem
-from dolfinx.mesh import locate_entities_boundary
 from petsc4py.PETSc import ScalarType
 from ufl import SpatialCoordinate, TestFunction, TrialFunction, as_vector, dot, dx, grad
 
 from bluemira.base.constants import MU_0
 from bluemira.magnetostatics.fem_utils import BluemiraFemFunction
 
+if TYPE_CHECKING:
+    import dolfinx.fem
+    from dolfinx.fem import Expression, dirichletbc, functionspace, locate_dofs_topological
+    from dolfinx.fem.petsc import LinearProblem
+    from dolfinx.mesh import locate_entities_boundary
 
 class FemMagnetostatic2d:
     """
@@ -78,6 +79,10 @@ class FemMagnetostatic2d:
             Filename of the xml file with the boundaries definition or a MeshFunction
             that defines the boundaries
         """
+        import dolfinx
+        from dolfinx.fem import functionspace
+        from dolfinx.mesh import locate_entities_boundary
+        
         # check whether mesh is a filename or a mesh, then load it or use it
         self.mesh = dolfinx.mesh.Mesh(mesh) if isinstance(mesh, str) else mesh
 
@@ -135,6 +140,11 @@ class FemMagnetostatic2d:
             Identification number for the dirichlet boundary
 
         """
+        import dolfinx
+        from dolfinx.fem import dirichletbc, locate_dofs_topological
+        from dolfinx.fem.petsc import LinearProblem
+        from dolfinx.mesh import locate_entities_boundary
+        
         if g is not None:
             self.g = g
 
@@ -217,6 +227,9 @@ class FemMagnetostatic2d:
         code from Fenics_tutorial (
         https://link.springer.com/book/10.1007/978-3-319-52462-7), pag. 104
         """
+        import dolfinx
+        from dolfinx.fem import Expression, functionspace
+
         degree = self.V.ufl_element().degree
         if degree == 1:
             base_eltype = ("DG", 0)

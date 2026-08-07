@@ -1,7 +1,7 @@
 set -e
 
 PYTHON_VERSION="3.11"
-ENVIRONMENT="bluemira"
+ENVIRONMENT="bluemira-bbt"
 while getopts "e:p:" flag
 do
     case "${flag}" in
