@@ -39,6 +39,9 @@ def _():
 
     os.environ.setdefault(key="BLUEMIRA_GEOMETRY_BACKEND", value="cadquery")
 
+
+    subprocess.run(["apt-get", "update", "-q"], check=True)
+
     subprocess.run(["apt-get", "install", "-y", "-q", "libglu1-mesa", "libgl1"], check=True)
 
     return
