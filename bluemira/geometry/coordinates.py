@@ -20,7 +20,8 @@ from typing import TYPE_CHECKING, Any
 
 import numba as nb
 import numpy as np
-from numba.np.extensions import cross2d
+
+# from numba.np.extensions import cross2d
 from scipy.interpolate import interp1d
 from scipy.spatial import ConvexHull
 from scipy.spatial.distance import cdist
@@ -836,7 +837,7 @@ def check_linesegment(
 
     distance = np.sqrt(np.sum(a_b**2))
     # Numba doesn't like doing cross-products of things with size 2
-    cross = cross2d(a_b, a_c)
+    cross = cross_2d(a_b, a_c)
     if np.abs(cross) > CROSS_P_TOL * distance:
         return False
     k_ac = np.dot(a_b, a_c)
