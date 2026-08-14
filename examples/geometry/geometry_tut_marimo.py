@@ -1,5 +1,5 @@
 # /// script
-# requires-python = "==3.12"
+# requires-python = "3.12"
 # ///
 
 import marimo
@@ -21,7 +21,9 @@ def _():
     import subprocess
     import sys
 
-    subprocess.run([sys.executable, "-m", "pip", "uninstall", "-y", "bluemira"], check=False)
+    subprocess.run(
+        [sys.executable, "-m", "pip", "uninstall", "-y", "bluemira"], check=False
+    )
 
     subprocess.run(
         [
@@ -39,12 +41,11 @@ def _():
 
     os.environ.setdefault(key="BLUEMIRA_GEOMETRY_BACKEND", value="cadquery")
 
-
     subprocess.run(["apt-get", "update", "-q"], check=True)
 
-    subprocess.run(["apt-get", "install", "-y", "-q", "libglu1-mesa", "libgl1"], check=True)
-
-    return
+    subprocess.run(
+        ["apt-get", "install", "-y", "-q", "libglu1-mesa", "libgl1"], check=True
+    )
 
 
 @app.cell
