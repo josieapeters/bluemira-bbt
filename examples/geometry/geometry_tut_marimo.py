@@ -15,6 +15,35 @@ def _():
     return (mo,)
 
 
+@app.cell(hide_code=True)
+def _():
+    import os
+    import subprocess
+    import sys
+
+    subprocess.run([sys.executable, "-m", "pip", "uninstall", "-y", "bluemira"], check=False)
+
+    subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "pip",
+            "install",
+            "--no-cache-dir",
+            "--force-reinstall",
+            "-q",
+            "git+https://github.com/josieapeters/bluemira-bbt.git@develop",
+        ],
+        check=True,
+    )
+
+    os.environ.setdefault(key="BLUEMIRA_GEOMETRY_BACKEND", value="cadquery")
+
+    subprocess.run(["apt-get", "install", "-y", "-q", "libglu1-mesa", "libgl1"], check=True)
+
+    return
+
+
 @app.cell
 def _():
     # Cell tags: remove-cell
