@@ -1,3 +1,7 @@
+# /// script
+# requires-python = "==3.12"
+# ///
+
 import marimo
 
 __generated_with = "0.23.16"
