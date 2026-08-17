@@ -15,7 +15,7 @@ def _():
     return (mo,)
 
 
-@app.cell(hide_code=True)
+@app.cell(hide_code=True, hide_output=True)
 def _():
     import os
     import subprocess
