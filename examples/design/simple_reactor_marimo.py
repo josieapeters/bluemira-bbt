@@ -645,11 +645,16 @@ def _(MyReactor, plasma, tf_coil):
     reactor.plasma = plasma
     reactor.tf_coil = tf_coil
 
+    reactor_shapes = reactor.component().get_component_properties('shape', first=False)[0]
+    reactor_shapes = [i._shape for i in reactor_shapes]
+
+@app.cell
+def _():
     import marimo_cad as cad
 
     viewer = cad.Viewer()
-    viewer.render(reactor)
-    mo.vstack([mo.hstack([reactor]), viewer])
+    viewer.render(reactor_shapes)
+    mo.vstack([viewer])
 
 
 if __name__ == "__main__":
