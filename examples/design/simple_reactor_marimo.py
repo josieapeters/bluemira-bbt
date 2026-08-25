@@ -1,4 +1,3 @@
-
 import marimo
 
 __generated_with = "0.24.0"
@@ -10,6 +9,7 @@ def _():
     import marimo as mo
 
     return (mo,)
+
 
 @app.cell(hide_code=True)
 def _():
@@ -52,7 +52,6 @@ def _():
     # SPDX-FileCopyrightText: 2021-present J. Morris, D. Short
     #
     # SPDX-License-Identifier: LGPL-2.1-or-later
-
     """
     A simple user-facing reactor example, showing some of the building blocks, and how to
     combine them.
@@ -135,7 +134,6 @@ def _(mo):
     each component. See the [ParameterFrame example](../base/params.ex.py) for more
     information.
     """)
-    return
 
 
 @app.cell
@@ -156,7 +154,6 @@ def _(Parameter, ParameterFrame, dataclass):
         phi_pos_l: Parameter[float]
         phi_neg_l: Parameter[float]
 
-
     @dataclass
     class TFCoilBuilderParams(ParameterFrame):
         """Parameters for building a TF coil."""
@@ -172,7 +169,6 @@ def _(mo):
     mo.md(r"""
     To manage access to properties of the components we need some `ComponentManagers`
     """)
-    return
 
 
 @app.cell
@@ -183,9 +179,12 @@ def _(ComponentManager):
         def lcfs(self):
             """Get separatrix"""
             return (
-                self.component().get_component("xz").get_component("LCFS").shape.boundary[0]
+                self
+                .component()
+                .get_component("xz")
+                .get_component("LCFS")
+                .shape.boundary[0]
             )
-
 
     class TFCoil(ComponentManager):
         """TF Coil component manager."""
@@ -209,7 +208,6 @@ def _(mo):
     We then need a reactor in which to store the components.
     Notice that the typing of the components here is the relevant `ComponentManager`
     """)
-    return
 
 
 @app.cell
@@ -236,7 +234,6 @@ def _(mo):
     In this case `PlasmaDesigner` has some required parameters but `PlasmaBuilder` does
     not.
     """)
-    return
 
 
 @app.cell
@@ -283,7 +280,6 @@ def _(
                     },
                 }
             )
-
 
     class PlasmaBuilder(Builder):
         """Build the 3D geometry of a plasma from a given LCFS."""
@@ -350,7 +346,6 @@ def _(mo):
 
     Notice that only `TFCoilBuilder` has required parameters in this case.
     """)
-    return
 
 
 @app.cell
@@ -403,7 +398,9 @@ def _(
             """
             distance_constraint = {
                 "name": "distance",
-                "f_constraint": lambda g: self._constrain_distance(g, min_dist_to_plasma),
+                "f_constraint": lambda g: self._constrain_distance(
+                    g, min_dist_to_plasma
+                ),
                 "tolerance": np.array([1e-6]),
             }
             optimisation_result = optimise_geometry(
@@ -414,9 +411,12 @@ def _(
             )
             return optimisation_result.geom
 
-        def _constrain_distance(self, geom: BluemiraWire, min_distance: float) -> np.ndarray:
-            return np.array(min_distance - distance_to(geom.create_shape(), self.lcfs)[0])
-
+        def _constrain_distance(
+            self, geom: BluemiraWire, min_distance: float
+        ) -> np.ndarray:
+            return np.array(
+                min_distance - distance_to(geom.create_shape(), self.lcfs)[0]
+            )
 
     class TFCoilBuilder(Builder):
         """
@@ -482,7 +482,6 @@ def _(mo):
     here.
     Notice there are no 'global' parameters as neither of the components share a variable.
     """)
-    return
 
 
 @app.cell
@@ -579,7 +578,6 @@ def _(mo):
     mo.md(r"""
     Now we set up our ParameterFrames
     """)
-    return
 
 
 @app.cell
@@ -593,7 +591,6 @@ def _(mo):
     mo.md(r"""
     We create our plasma
     """)
-    return
 
 
 @app.cell
@@ -616,7 +613,6 @@ def _(mo):
     mo.md(r"""
     We create our TF coil
     """)
-    return
 
 
 @app.cell
@@ -627,7 +623,8 @@ def _(TFCoil, TFCoilBuilder, TFCoilDesigner, plasma, reactor_config):
     tf_parameterisation = tf_coil_designer.execute()
 
     tf_coil_builder = TFCoilBuilder(
-        reactor_config.params_for("TF Coil", "builder"), tf_parameterisation.create_shape()
+        reactor_config.params_for("TF Coil", "builder"),
+        tf_parameterisation.create_shape(),
     )
     tf_coil = TFCoil(tf_coil_builder.build())
     return (tf_coil,)
@@ -638,7 +635,6 @@ def _(mo):
     mo.md(r"""
     Finally we add the components to the reactor and show the CAD
     """)
-    return
 
 
 @app.cell
@@ -648,12 +644,11 @@ def _(MyReactor, plasma, tf_coil):
     reactor.plasma = plasma
     reactor.tf_coil = tf_coil
 
-
     import marimo_cad as cad
+
     viewer = cad.Viewer()
     viewer.render(reactor)
     mo.vstack([mo.hstack([reactor]), viewer])
-    return
 
 
 if __name__ == "__main__":
