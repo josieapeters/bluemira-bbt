@@ -9,11 +9,12 @@ api for plotting using CAD backend
 """
 
 from __future__ import annotations
+from types import DynamicClassAttribute
 
 import os
 from abc import ABC, abstractmethod
 from contextlib import suppress
-from enum import Enum
+import enum
 from functools import lru_cache
 from typing import TYPE_CHECKING, ClassVar
 
@@ -27,7 +28,15 @@ if TYPE_CHECKING:
     from bluemira.geometry.base import BluemiraGeo
 
 
-class ViewerBackend(Enum):
+class classproperty:
+    def __init__(self, getter):
+        self.getter = getter
+
+    def __get__(self, instance, owner):
+        return self.getter(owner)
+
+
+class ViewerBackend(enum.Enum):
     """CAD viewer backends."""
 
     FREECAD = "bluemira.codes.cadapi._freecad.api"
@@ -36,8 +45,7 @@ class ViewerBackend(Enum):
     JUPYTER = "bluemira.codes._jupytercad"
     MARIMO = "bluemira.codes._marimo"
 
-    @classmethod
-    @property
+    @classproperty
     def DEFAULT(cls):  # noqa: N802
         """Default viewer based on backend availability"""
         chosen = os.environ.get("BLUEMIRA_GEOMETRY_BACKEND", "freecad").upper()

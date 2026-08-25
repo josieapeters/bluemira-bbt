@@ -16,7 +16,7 @@ import numpy as np
 import numpy.typing as npt
 from matplotlib._tri import TriContourGenerator  # noqa: PLC2701
 from matplotlib.tri import Triangulation
-from mpi4py import MPI
+#from mpi4py import MPI
 from scipy.interpolate import interp1d
 
 from bluemira.base.constants import EPS
@@ -581,7 +581,7 @@ def create_mesh(
     directory: str | PathLike,
     mesh_name_msh: str,
     gdim: int | tuple = (0, 2),
-    comm=MPI.COMM_WORLD,
+    #comm=MPI.COMM_WORLD,
     rank: int = 0,
 ) -> dolfinx.mesh.Mesh:
     """
