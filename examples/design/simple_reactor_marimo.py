@@ -1,3 +1,6 @@
+# /// script
+# UV_PYTHON=3.11
+# ///
 import marimo
 
 __generated_with = "0.24.0"
@@ -647,8 +650,11 @@ def _(MyReactor, plasma, tf_coil):
     reactor.plasma = plasma
     reactor.tf_coil = tf_coil
 
-    reactor.show_cad(n_sectors=1)
-    reactor.show_cad("xz")
+
+    import marimo_cad as cad
+    viewer = cad.Viewer()
+    viewer.render(reactor)
+    mo.vstack([mo.hstack([reactor]), viewer])
     return
 
 
