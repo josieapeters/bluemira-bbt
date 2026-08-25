@@ -34,6 +34,7 @@ class ViewerBackend(Enum):
     POLYSCOPE = "bluemira.codes._polyscope"
     CADQUERY = "bluemira.codes.cadapi._cadquery"
     JUPYTER = "bluemira.codes._jupytercad"
+    MARIMO = "bluemira.codes._marimo"
 
     @classmethod
     @property
@@ -46,7 +47,8 @@ class ViewerBackend(Enum):
                 and type(get_ipython()).__name__ == "ZMQInteractiveShell"
             ):
                 return cls["jupyter".upper()]  # Jupyter notebook or qtconsole
-        return cls[chosen]
+        return cls.MARIMO
+        # return cls[chosen]
 
     @lru_cache(2)
     def get_module(self):
