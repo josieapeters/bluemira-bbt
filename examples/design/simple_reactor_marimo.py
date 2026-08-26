@@ -649,7 +649,8 @@ def _(MyReactor, plasma, tf_coil):
     reactor_shapes = reactor.component().get_component_properties("shape", first=False)[
         0
     ]
-    reactor_shapes = [i._shape for i in reactor_shapes]
+    colours = ["blue", "green", "red", "purple"]
+    reactor_shapes = [{"shape": i._shape, "color": c} for i, c in zip(reactor_shapes, colours)]
 
 
 @app.cell
