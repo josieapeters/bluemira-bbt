@@ -42,7 +42,7 @@ def _():
     subprocess.run(
         ["apt-get", "install", "-y", "-q", "libglu1-mesa", "libgl1"], check=True
     )
-    subprocess.run(["pip", "install", "cadquery==2.7"])
+    # subprocess.run(["pip", "install", "cadquery==2.7"])
 
 
 @app.cell
