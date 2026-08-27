@@ -14,7 +14,7 @@ def _():
 @app.cell
 def _():
     from fsspec.implementations.github import GithubFileSystem
-    examples = GithubFileSystem(org="josieapeters", repo="bluemira-bbt", branch="main")
+    examples = GithubFileSystem(org="josieapeters", repo="bluemira-bbt")
     bm_st = GithubFileSystem(org="Fusion-Power-Plant-Framework", repo="bluemira-spherical-tokamak", branch="main")
     return (examples, bm_st,)
 
@@ -22,9 +22,10 @@ def _():
 @app.cell
 def _(bm_st):
     INDAT_path = "github://studies/first/data/PROCESS/st_regression.IN.DAT"
+    MFILE_path = "github://develop/examples/spherical_tokamak/MFILE.DAT"
     run_dir = "github://studies/first/data/PROCESS/run_dir"
     INDAT = bm_st.download(INDAT_path, "")
-    MFILE = examples.download("github://examples/spherical_tokamak/MFILE.DAT", "")
+    MFILE = examples.download(MFILE_path, "",)
     return (INDAT, MFILE,)
 
 
