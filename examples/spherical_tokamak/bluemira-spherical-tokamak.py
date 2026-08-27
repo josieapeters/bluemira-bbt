@@ -24,7 +24,7 @@ def _(bm_st):
     INDAT_path = "github://studies/first/data/PROCESS/st_regression.IN.DAT"
     run_dir = "github://studies/first/data/PROCESS/run_dir"
     INDAT = bm_st.download(INDAT_path, "")
-    MFILE = examples.download("github://examples/spherical_tokamak/MFILE.DAT")
+    MFILE = examples.download("github://examples/spherical_tokamak/MFILE.DAT", "")
     return (INDAT, MFILE,)
 
 
