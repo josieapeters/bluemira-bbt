@@ -14,9 +14,9 @@ def _():
 @app.cell
 def _():
     from fsspec.implementations.github import GithubFileSystem
-    examples = GithubFileSystem(org="josieapeters", repo="bluemira-bbt")
+    bbt_repo = GithubFileSystem(org="josieapeters", repo="bluemira-bbt")
     bm_st = GithubFileSystem(org="Fusion-Power-Plant-Framework", repo="bluemira-spherical-tokamak", branch="main")
-    return (examples, bm_st,)
+    return (bbt_repo, bm_st,)
 
 
 @app.cell
@@ -24,8 +24,8 @@ def _(bm_st):
     INDAT_path = "github://studies/first/data/PROCESS/st_regression.IN.DAT"
     MFILE_path = "github://develop/examples/spherical_tokamak/MFILE.DAT"
     run_dir = "github://studies/first/data/PROCESS/run_dir"
-    INDAT = bm_st.download(INDAT_path, "")
-    MFILE = examples.download(MFILE_path, "",)
+    INDAT = bm_st.download(INDAT_path, "",)
+    MFILE = bbt_repo.download(MFILE_path, "",)
     return (INDAT, MFILE,)
 
 
@@ -74,6 +74,8 @@ def _():
 @app.cell(hide_code=True)
 def _():
     import marimo_cad as cad
+
+    from pathlib import Path
 
     from bluemira.base.reactor import Reactor
     from bluemira.base.reactor_config import ReactorConfig
