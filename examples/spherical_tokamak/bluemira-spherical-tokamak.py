@@ -28,11 +28,9 @@ def _():
 def _(bm_st):
     INDAT_path = "github://studies/first/data/PROCESS/st_regression.IN.DAT"
     MFILE_path = "github://examples/spherical_tokamak/MFILE.DAT"
-    TF_path = "github://studies/first/data/TF/TFCoilDesign.json"
     run_dir = "github://studies/first/data/PROCESS/run_dir"
     INDAT = bm_st.download(INDAT_path, "")
     MFILE = bbt_repo.download(MFILE_path, "")
-    TF_json = bm_st.download(TF_path, "")
     return (INDAT, MFILE)
 
 
@@ -546,7 +544,7 @@ def _(INDAT, params):
         "plasma": {},
         "tf_coils": {
             "run_mode": "run",
-            "file_path": TF_json,
+            "file_path": TFCoilDesign,
             "plot": True,
             "material": {
                 "Winding Pack": "Toroidal_Field_Coil_2015",
