@@ -84,6 +84,7 @@ def _():
 def _():
 
     import marimo_cad as cad
+    from pathlib import Path
     from bluemira_st.blanket.manager import BB
     from bluemira_st.build_routines import (
         build_bb,
@@ -103,6 +104,7 @@ def _():
     from bluemira.base.reactor_config import ReactorConfig
     from bluemira.builders.plasma import Plasma
     from bluemira.geometry.tools import interpolate_bspline
+    from bluemira.materials.cache import MaterialCache
 
     return (
         BB,
@@ -122,13 +124,12 @@ def _():
         cad,
         interpolate_bspline,
         radial_build,
+        MaterialCache,
     )
 
 
 @app.cell
 def _():
-    from bluemira.materials.cache import MaterialCache
-
     cache = MaterialCache.get_instance()
     cache.load_from_package([
         "bluemira_st.materials",
