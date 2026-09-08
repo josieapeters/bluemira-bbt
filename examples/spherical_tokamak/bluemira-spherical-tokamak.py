@@ -82,7 +82,6 @@ def _():
 
 @app.cell(hide_code=True)
 def _():
-
     import marimo_cad as cad
     from pathlib import Path
     from bluemira_st.blanket.manager import BB
@@ -673,9 +672,8 @@ def _(reactor):
     reactor_shapes = reactor.component().get_component_properties("shape", first=False)[
         0
     ]
-    colours = ["blue", "green", "red", "purple", "yellow", "orange", "turquoise"]
     reactor_shapes = [
-        {"shape": i._shape, "color": c} for i, c in zip(reactor_shapes, colours)
+        {"shape": i._shape, "color": "pink" if i.label== 'LCFS' else "blue", "name": i.label} for i in reactor_shapes
     ]
     return (reactor_shapes,)
 
