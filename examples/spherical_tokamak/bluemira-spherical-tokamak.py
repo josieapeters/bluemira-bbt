@@ -28,7 +28,7 @@ def _():
 def _(bm_st):
     INDAT_path = "github://studies/first/data/PROCESS/st_regression.IN.DAT"
     MFILE_path = "github://examples/spherical_tokamak/MFILE.DAT"
-    TF_path = "github.com://studies/first/data/TF/TFCoilDesign.json"
+    TF_path = "github://studies/first/data/TF/TFCoilDesign.json"
     run_dir = "github://studies/first/data/PROCESS/run_dir"
     INDAT = bm_st.download(INDAT_path, "")
     MFILE = bbt_repo.download(MFILE_path, "")
