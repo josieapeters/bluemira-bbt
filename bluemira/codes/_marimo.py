@@ -91,13 +91,13 @@ def show_cad(
         if transparency:
             opts["alphas"].append(1 - p["transparency"])
     for op in list(opts.keys()):
-        if len(opts[op]) != len(parts):
+        if len(opts[op]) != len(parts_list):
             opts.pop(op)
     if not remove_names and None not in labels and len(labels) == len(parts):
         opts["names"] = [clean_name(l, f"{i}") for i, l in enumerate(labels)]
 
     viewer = cad.Viewer()
-    viewer.render(_construct_partspec(parts, opts))
+    viewer.render(_construct_partspec(parts_list, opts))
     mo.vstack([viewer])
 
 
