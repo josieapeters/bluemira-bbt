@@ -24,8 +24,8 @@ def _():
     return (bbt_repo, bm_st)
 
 
-@app.cell
-def _(hide_code=True):
+@app.cell(hide_code=True)
+def _():
     INDAT_path = "github://studies/first/data/PROCESS/st_regression.IN.DAT"
     MFILE_path = "github://examples/spherical_tokamak/MFILE.DAT"
     TF_path = "github://studies/first/data/TF/TFCoilDesign.json"
@@ -129,8 +129,8 @@ def _():
     )
 
 
-@app.cell
-def _(hide_code=True):
+@app.cell(hide_code=True)
+def _():
     cache = MaterialCache.get_instance()
     cache.load_from_package([
         "bluemira_st.materials",
