@@ -98,7 +98,7 @@ def show_cad(
 
     viewer = cad.Viewer()
     viewer.render(_construct_partspec(parts_list, opts))
-    mo.vstack([viewer])
+    return viewer
 
 
 def _construct_partspec(parts, opts):

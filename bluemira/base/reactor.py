@@ -604,7 +604,7 @@ class Reactor(BaseManager):
         """
         self._validate_cad_dim(dim)
 
-        show_components_cad(
+        return show_components_cad(
             self._build_component_tree(
                 dim,
                 self._init_construction_param_values(construction_params, kwargs),

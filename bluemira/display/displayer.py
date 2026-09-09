@@ -338,7 +338,7 @@ class ComponentDisplayer(BaseDisplayer):
         """
         import bluemira.base.components as bm_comp  # noqa: PLC0415
 
-        show_cad(
+        return show_cad(
             *bm_comp.get_properties_from_components(
                 comps, ("shape", "display_cad_options", "name")
             ),
