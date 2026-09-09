@@ -25,7 +25,7 @@ def _():
 
 
 @app.cell
-def _(bm_st):
+def _(hide_code=True):
     INDAT_path = "github://studies/first/data/PROCESS/st_regression.IN.DAT"
     MFILE_path = "github://examples/spherical_tokamak/MFILE.DAT"
     TF_path = "github://studies/first/data/TF/TFCoilDesign.json"
@@ -130,7 +130,7 @@ def _():
 
 
 @app.cell
-def _():
+def _(hide_code=True):
     cache = MaterialCache.get_instance()
     cache.load_from_package([
         "bluemira_st.materials",
@@ -146,90 +146,7 @@ def _(mo):
     """)
 
 
-@app.cell(hide_code=True)
-def _():
-    TFCoilDesign = {
-        "x1": {
-            "value": 0.872862868116548,
-            "lower_bound": 0.3,
-            "upper_bound": 0.5,
-            "fixed": True,
-            "description": "Inner limb radius",
-        },
-        "x2": {
-            "value": 10.690185755255492,
-            "lower_bound": 9.738241394940257,
-            "upper_bound": 14.607362092410385,
-            "fixed": False,
-            "description": "Outer limb radius",
-        },
-        "z1": {
-            "value": 11.724104761645304,
-            "lower_bound": 8,
-            "upper_bound": 10.5,
-            "fixed": True,
-            "description": "Upper limb height",
-        },
-        "z2": {
-            "value": -11.724104761645304,
-            "lower_bound": -10.5,
-            "upper_bound": -8,
-            "fixed": True,
-            "description": "Lower limb height",
-        },
-        "ri": {
-            "value": 1.0,
-            "lower_bound": 0,
-            "upper_bound": 2,
-            "fixed": True,
-            "description": "Inboard corner radius",
-        },
-        "ro": {
-            "value": 1.0,
-            "lower_bound": 1,
-            "upper_bound": 5,
-            "fixed": True,
-            "description": "Outboard corner radius",
-        },
-        "x3": {
-            "value": 2.5,
-            "lower_bound": 2.4,
-            "upper_bound": 2.6,
-            "fixed": True,
-            "description": "Curve start radius",
-        },
-        "z1_peak": {
-            "value": 11,
-            "lower_bound": 6,
-            "upper_bound": 12,
-            "fixed": True,
-            "description": "Upper limb curve height",
-        },
-        "z2_peak": {
-            "value": -11,
-            "lower_bound": -12,
-            "upper_bound": -6,
-            "fixed": True,
-            "description": "Lower limb curve height",
-        },
-        "x4": {
-            "value": 1.1,
-            "lower_bound": 1,
-            "upper_bound": 1.3,
-            "fixed": True,
-            "description": "Middle limb radius",
-        },
-        "z3": {
-            "value": 6.5,
-            "lower_bound": 6,
-            "upper_bound": 8,
-            "fixed": True,
-            "description": "Taper angle stop height",
-        },
-    }
-
-
-@app.cell(hide_code=True)
+@app.cell()
 def _():
     params = {
         "n_PF": {
@@ -526,6 +443,7 @@ def _():
 
 @app.cell
 def _(INDAT, params):
+    n_sectors = 9
     build_config = {
         "params": params,
         "radial_build": {
@@ -575,6 +493,12 @@ def _(INDAT, params):
                 "Casing": "Poloidal_Field_Coil",
             },
         },
+        "blanket": {
+            "n_sectors": n_sectors
+        },
+        "inboard_shield": {
+            "n_sectors": n_sectors
+        }
     }
     return (build_config,)
 
