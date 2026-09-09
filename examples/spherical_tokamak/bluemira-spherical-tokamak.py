@@ -589,14 +589,12 @@ def _(mo):
 @app.cell
 def _(BB, IS, PFCoil, Plasma, Reactor, TFCoil):
     class MyReactor(Reactor):
-        """A simple reactor with two components."""
+        """A simple reactor."""
 
         plasma: Plasma
         tf_coil: TFCoil
         blanket: BB
         inboard_shield: IS
-        # Models
-        # equilibria: EquilibriumManager
         pf_coil: PFCoil
 
     return (MyReactor,)
@@ -633,7 +631,6 @@ def _(
         reactor_config.config_for("reference_fbe"),
     )
 
-    # Fine (it'll just digest whatever it gets from the reference equilibrium)
     reactor.plasma = build_plasma(
         reactor_config.params_for("plasma"),
         reactor_config.config_for("plasma"),
@@ -646,7 +643,6 @@ def _(
         ref_fbe.coilset,
     )
 
-    # Needs work: We need a "PictureFrame" shape
     reactor.tf_coil = build_tf_coils(
         reactor_config.params_for("tf_coils"),
         reactor_config.config_for("tf_coils"),

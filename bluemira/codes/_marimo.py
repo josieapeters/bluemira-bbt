@@ -8,9 +8,9 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from typing import TYPE_CHECKING
 
-import numpy as np
 import marimo as mo
 import marimo_cad as cad
+import numpy as np
 
 import bluemira.codes._geometryapi as cadapi
 from bluemira.utilities.tools import ColourDescriptor
@@ -93,7 +93,7 @@ def show_cad(
     for op in list(opts.keys()):
         if len(opts[op]) != len(parts_list):
             opts.pop(op)
-    if not remove_names and None not in labels and len(labels) == len(parts):
+    if not remove_names and None not in labels and len(labels) == len(parts_list):
         opts["names"] = [clean_name(l, f"{i}") for i, l in enumerate(labels)]
 
     viewer = cad.Viewer()
