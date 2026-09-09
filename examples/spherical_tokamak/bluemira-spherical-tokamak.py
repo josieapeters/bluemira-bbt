@@ -33,6 +33,7 @@ def _():
     INDAT = bm_st.download(INDAT_path, "")
     MFILE = bbt_repo.download(MFILE_path, "")
     TF_json = bm_st.download(TF_path, "",)
+    local_indat_path = Path("st_regression.IN.DAT")
     return (INDAT, MFILE)
 
 
@@ -447,8 +448,8 @@ def _(INDAT, params):
     build_config = {
         "params": params,
         "radial_build": {
-            "run_mode": "read",
-            "input_in_dat_path": INDAT,
+            "run_mode": "run",
+            "input_in_dat_path": local_indat_path,
             "read_dir": ".",
             "run_dir": ".",
             "plot": False,
