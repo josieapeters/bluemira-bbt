@@ -8,8 +8,6 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from typing import TYPE_CHECKING
 
-import marimo as mo
-import marimo_cad as cad
 import numpy as np
 
 import bluemira.codes._geometryapi as cadapi
@@ -96,10 +94,8 @@ def show_cad(
     if not remove_names and None not in labels and len(labels) == len(parts_list):
         opts["names"] = [clean_name(l, f"{i}") for i, l in enumerate(labels)]
 
-    viewer = cad.Viewer()
-    viewer.render(_construct_partspec(parts_list, opts))
-    return viewer
-
+    return _construct_partspec(parts_list, opts)
+    
 
 def _construct_partspec(parts, opts):
     p_spec = []
