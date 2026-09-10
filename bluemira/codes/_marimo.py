@@ -94,8 +94,8 @@ def show_cad(
     if not remove_names and None not in labels and len(labels) == len(parts_list):
         opts["names"] = [clean_name(l, f"{i}") for i, l in enumerate(labels)]
 
-    return _construct_partspec(parts_list, opts)
-    
+#    return _construct_partspec(parts_list, opts)
+    return parts_list
 
 def _construct_partspec(parts, opts):
     p_spec = []
