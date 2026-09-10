@@ -384,7 +384,7 @@ def show_components_cad(components: ComponentT | Iterable[ComponentT], **kwargs)
     """
     Show the CAD build of the component.
     """
-    ComponentDisplayer().show_cad(components, **kwargs)
+    return ComponentDisplayer().show_cad(components, **kwargs)
 
 
 def plot_component_dim(dim: str, component: ComponentT, *, show: bool = True, **kwargs):
