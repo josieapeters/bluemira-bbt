@@ -633,7 +633,7 @@ def _(
 
 @app.cell
 def _(reactor):
-    reactor_shapes = reactor.component().get_component_properties("shape", first=False)[
+    reactor_shapes = reactor.component().get_component("xyz").get_component_properties("shape", first=False)[
         0
     ]
     reactor_shapes = [
