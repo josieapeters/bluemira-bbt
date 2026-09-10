@@ -182,9 +182,10 @@ def _():
     aspect_ratio = mo.ui.text(placeholder="1.8", label="A (Aspect ratio)")
     n_PFs = mo.ui.text(placeholder="10", label="Number of Poloidal Field Coils")
     n_TFs = mo.ui.text(placeholder="12", label="Number of Toroidal Field Coils")
+    return(major_radius, aspect_ratio, n_PFs, n_TFs)
 
 @app.cell()
-def_():
+def _():
     mo.vstack([major_radius, aspect_ratio, n_PFs, n_TFs])
 
 
