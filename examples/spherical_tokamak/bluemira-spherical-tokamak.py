@@ -73,7 +73,9 @@ def _():
     subprocess.run(["apt-get", "update", "-q"], check=True)
 
     subprocess.run(
-        ["apt-get", "install", "-y", "-q", "libglu1-mesa", "libgl1"], check=True
+        ["apt-get", "install", "-y", "-q", "libglu1-mesa", "libgl1"],
+        check=True,
+        stdout=subprocess.DEVNULL
     )
 
     subprocess.run([
