@@ -52,7 +52,8 @@ def _():
     import sys
 
     subprocess.run(
-        [sys.executable, "-m", "pip", "uninstall", "-y", "bluemira"], check=False
+        [sys.executable, "-m", "pip", "uninstall", "-y", "bluemira"], check=False,
+        stdout=subprocess.DEVNULL
     )
 
     subprocess.run(
@@ -67,10 +68,12 @@ def _():
             "git+https://github.com/josieapeters/bluemira-bbt.git@develop",
         ],
         check=True,
+        stdout=subprocess.DEVNULL
     )
     os.environ.setdefault(key="BLUEMIRA_GEOMETRY_BACKEND", value="cadquery")
 
-    subprocess.run(["apt-get", "update", "-q"], check=True)
+    subprocess.run(["apt-get", "update", "-q"], check=True, ,
+    stdout=subprocess.DEVNULL)
 
     subprocess.run(
         ["apt-get", "install", "-y", "-q", "libglu1-mesa", "libgl1"],
@@ -83,10 +86,10 @@ def _():
         "git+https://github.com/Fusion-Power-Plant-Framework/bluemira-spherical-tokamak",],
         stdout=subprocess.DEVNULL)
 
-    subprocess.run([
-        "pip", "install", "-q",
-        "git+https://github.com/ukaea/PROCESS@v3.4.1",
-    ])
+    subprocess.run(
+        ["pip", "install", "-q",
+        "git+https://github.com/ukaea/PROCESS@v3.4.1",],
+        stdout=subprocess.DEVNULL)
 
     subprocess.run(
         ["pip", "install", "-q", "marimo_cad",],
