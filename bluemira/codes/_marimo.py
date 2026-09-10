@@ -97,7 +97,7 @@ def show_cad(
         opts["names"] = [clean_name(l, f"{i}") for i, l in enumerate(labels)]
 
 #    return _construct_partspec(parts_list, opts)
-    return [part._shape for part in parts_list]
+    return parts_list
 
 def _construct_partspec(parts, opts):
     p_spec = []

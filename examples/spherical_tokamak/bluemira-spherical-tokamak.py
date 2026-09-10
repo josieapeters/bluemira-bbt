@@ -176,24 +176,35 @@ def _(mo):
     ## Design parameters
     """)
 
+@app.cell()
+def _():
+    major_radius = mo.ui.text(placeholder="4.5", label="R_0 (Major radius)")
+    aspect_ratio = mo.ui.text(placeholder="1.8", label="A (Aspect ratio)")
+    n_PFs = int(mo.ui.text(placeholder="10", label="Number of Poloidal Field Coils"))
+    n_TFs = int(mo.ui.text(placeholder="12", label="Number of Toroidal Field Coils"))
 
 @app.cell()
+def_():
+    mo.vstack([major_radius, aspect_ratio, n_PFs, n_TFs])
+
+
+@app.cell(hide_code=True)
 def _():
     params = {
         "n_PF": {
-            "value": 10,
+            "value": n_PFs.value if n_PFs.value != None else 10,
             "unit": "dimensionless",
             "source": "Input",
             "long_name": "Number of PF coils",
         },
         "n_TF": {
-            "value": 12,
+            "value": n_TFs.value if n_TFs.value != None else 12,
             "unit": "dimensionless",
             "source": "Input",
             "long_name": "Number of TF coils",
         },
         "R_0": {
-            "value": 4.5,
+            "value": major_radius.value if major_radius.value != None else 4.5,
             "unit": "meter",
             "source": "Input",
             "long_name": "Major radius",
@@ -205,7 +216,7 @@ def _():
             "long_name": "z-coordinate of the plasma centre radius",
         },
         "A": {
-            "value": 1.8,
+            "value": aspect_ratio.value if aspect_ratio.value != None else 1.8,
             "unit": "dimensionless",
             "source": "Input",
             "long_name": "Plasma aspect ratio",
