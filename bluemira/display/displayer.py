@@ -225,7 +225,7 @@ def show_cad(
             )
 
     backend.get_module().show_cad(
-        [part.shape for part in parts],
+        [part._shape for part in parts],
         [o.as_dict() for o in new_options],
         labels,
         **viewer_kwargs,
