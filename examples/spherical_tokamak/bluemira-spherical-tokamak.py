@@ -79,32 +79,24 @@ def _():
     )
 
     subprocess.run([
-        "pip",
-        "install",
-        "-q",
-        "git+https://github.com/Fusion-Power-Plant-Framework/bluemira-spherical-tokamak",
-    ])
+        "pip", "install", "-q",
+        "git+https://github.com/Fusion-Power-Plant-Framework/bluemira-spherical-tokamak",],
+        stdout=subprocess.DEVNULL)
 
     subprocess.run([
-        "pip",
-        "install",
-        "-q",
+        "pip", "install", "-q",
         "git+https://github.com/ukaea/PROCESS@v3.4.1",
     ])
 
-    subprocess.run([
-        "pip",
-        "install",
-        "-q",
-        "marimo_cad",
-    ])
+    subprocess.run(
+        ["pip", "install", "-q", "marimo_cad",],
+        stdout=subprocess.DEVNULL
+    )
 
-    subprocess.run([
-        "pip",
-        "install",
-        "-q",
-        "cadquery",
-    ])
+    subprocess.run(
+        ["pip", "install", "-q", "cadquery",],
+        stdout=subprocess.DEVNULL
+    )
 
 
 @app.cell(hide_code=True)
