@@ -8,7 +8,6 @@ def _(mo):
     mo.md(r"""
     ## Initial set-up
     Run the following cells to install the necessary modules for running the tutorial.
-    When a box comes up asking to install marimo_cad and cadquery please click install.
     """)
 
 
@@ -178,10 +177,10 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _():
-    major_radius = mo.ui.text(placeholder="4.5", label="R_0 (Major radius)")
-    aspect_ratio = mo.ui.text(placeholder="1.8", label="A (Aspect ratio)")
-    n_PFs = mo.ui.text(placeholder="10", label="Number of Poloidal Field Coils")
-    n_TFs = mo.ui.text(placeholder="12", label="Number of Toroidal Field Coils")
+    major_radius = mo.ui.text(value="4.5", label="R_0 (Major radius)")
+    aspect_ratio = mo.ui.text(value="1.8", label="A (Aspect ratio)")
+    n_PFs = mo.ui.text(value="10", label="Number of Poloidal Field Coils")
+    n_TFs = mo.ui.text(value="12", label="Number of Toroidal Field Coils")
     return(major_radius, aspect_ratio, n_PFs, n_TFs)
 
 @app.cell()
@@ -193,19 +192,19 @@ def _():
 def _():
     params = {
         "n_PF": {
-            "value": int(n_PFs.value) if n_PFs.value != None else 10,
+            "value": int(n_PFs.value),
             "unit": "dimensionless",
             "source": "Input",
             "long_name": "Number of PF coils",
         },
         "n_TF": {
-            "value": int(n_TFs.value) if n_TFs.value != None else 12,
+            "value": int(n_TFs.value),
             "unit": "dimensionless",
             "source": "Input",
             "long_name": "Number of TF coils",
         },
         "R_0": {
-            "value": float(major_radius.value) if major_radius.value != None else 4.5,
+            "value": float(major_radius.value),
             "unit": "meter",
             "source": "Input",
             "long_name": "Major radius",
@@ -217,7 +216,7 @@ def _():
             "long_name": "z-coordinate of the plasma centre radius",
         },
         "A": {
-            "value": float(aspect_ratio.value) if aspect_ratio.value != None else 1.8,
+            "value": float(aspect_ratio.value),
             "unit": "dimensionless",
             "source": "Input",
             "long_name": "Plasma aspect ratio",
@@ -546,7 +545,7 @@ def _(INDAT, params):
     return (build_config,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
     ## Build the reactor
