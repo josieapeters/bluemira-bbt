@@ -60,6 +60,8 @@ def show_cad(
         options passed to polyscope
     """
     parts_list = parts if isinstance(parts, list) else [parts]
+    if parts_list == None:
+        return "parts list is empty"
 
     if part_options is None:
         part_options = [None]

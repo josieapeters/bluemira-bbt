@@ -3,6 +3,14 @@ import marimo
 __generated_with = "0.24.0"
 app = marimo.App(width="medium", auto_download=["html"])
 
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Initial set-up
+    Run the following cells to install the necessary modules for running the tutorial.
+    When a box comes up asking to install marimo_cad and cadquery please click install.
+    """)
+
 
 @app.cell
 def _():
@@ -82,6 +90,20 @@ def _():
         "git+https://github.com/ukaea/PROCESS@v3.4.1",
     ])
 
+    subprocess.run([
+        "pip",
+        "install",
+        "-q",
+        "marimo_cad",
+    ])
+
+    subprocess.run([
+        "pip",
+        "install",
+        "-q",
+        "cadquery",
+    ])
+
 
 @app.cell(hide_code=True)
 def _():
@@ -143,7 +165,7 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Configs
+    ## Design parameters
     """)
 
 
@@ -442,7 +464,7 @@ def _():
     return (params,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(INDAT, params):
     n_sectors = 9
     build_config = {
