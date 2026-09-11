@@ -226,7 +226,7 @@ def _():
 def _():
     params = {
         "n_PF": {
-            "value": int(n_PFs.value),
+            "value": 10,
             "unit": "dimensionless",
             "source": "Input",
             "long_name": "Number of PF coils",
