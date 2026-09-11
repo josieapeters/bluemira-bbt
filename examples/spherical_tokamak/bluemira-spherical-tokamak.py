@@ -198,23 +198,27 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Design parameters
+        ## Design parameters
+        ### Run with default values first, then try adjusting some key parameters.
+        - ${R_0}$ is the major radius, i.e. the distance from the centre of the tokamak to the centre of the plasma (pictured in pink in our model). A larger major radius will, unsurprisingly (!), mean a larger device. It will also increase the plasma volume.
+        - $A$ is the aspect ratio. This is the ratio major radius ${R_0}$ to the minor radius (i.e. the distance from the centre of the plasma, to the outer edge of the tokamak). The closer the aspect ratio is to 1, the tokamak is known as a spherical tokamak. Traditional tokamaks have higher aspect ratios. For example, JET's aspect ratio was ~3.
+        - ${\delta}$ is the triangularity of the plasma.
+        - The number of Toroidal field coils, these are the rectangular magnets surrounding our other components. They confine the plasma and prevent it from expanding outwards.
     """)
 
 
 @app.cell(hide_code=True)
 def _():
-    major_radius = mo.ui.text(value="4.5", label="R_0 (Major radius)")
-    aspect_ratio = mo.ui.text(value="1.8", label="A (Aspect ratio)")
-    n_PFs = mo.ui.text(value="10", label="Number of Poloidal Field Coils")
+    major_radius = mo.ui.text(value="4.5", label="${R_0}$ (Major radius)")
+    aspect_ratio = mo.ui.text(value="1.8", label="$A$ (Aspect ratio)")
+    delta = mo.ui.text(value="0.5", label="${\delta}$ (Triangularity)")
     n_TFs = mo.ui.text(value="12", label="Number of Toroidal Field Coils")
-    delta = mo.ui.text(value="0.5", label="delta (Triangularity)")
-    return (major_radius, aspect_ratio, n_PFs, n_TFs, delta)
+    return (major_radius, aspect_ratio, delta, n_TFs)
 
 
 @app.cell()
 def _():
-    mo.vstack([major_radius, aspect_ratio, delta, n_PFs, n_TFs])
+    mo.vstack([major_radius, aspect_ratio, delta, n_TFs])
 
 
 @app.cell(hide_code=True)
