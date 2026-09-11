@@ -3,6 +3,7 @@ import marimo
 __generated_with = "0.24.0"
 app = marimo.App(width="medium", auto_download=["html"])
 
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -39,7 +40,10 @@ def _():
     run_dir = "github://studies/first/data/PROCESS/run_dir"
     INDAT = bm_st.download(INDAT_path, "")
     MFILE = bbt_repo.download(MFILE_path, "")
-    TF_json = bm_st.download(TF_path, "",)
+    TF_json = bm_st.download(
+        TF_path,
+        "",
+    )
     local_indat_path = Path("st_regression.IN.DAT")
     return (INDAT, MFILE)
 
@@ -51,9 +55,10 @@ def _():
     import sys
 
     subprocess.run(
-        [sys.executable, "-m", "pip", "uninstall", "-y", "bluemira"], check=False,
+        [sys.executable, "-m", "pip", "uninstall", "-y", "bluemira"],
+        check=False,
         stdout=subprocess.DEVNULL,
-        stderr=subprocess.STDOUT
+        stderr=subprocess.STDOUT,
     )
 
     subprocess.run(
@@ -69,7 +74,7 @@ def _():
         ],
         check=True,
         stdout=subprocess.DEVNULL,
-        stderr=subprocess.STDOUT
+        stderr=subprocess.STDOUT,
     )
     os.environ.setdefault(key="BLUEMIRA_GEOMETRY_BACKEND", value="cadquery")
 
@@ -77,45 +82,66 @@ def _():
         ["apt-get", "update", "-q"],
         check=True,
         stdout=subprocess.DEVNULL,
-        stderr=subprocess.STDOUT
+        stderr=subprocess.STDOUT,
     )
 
     subprocess.run(
         ["apt-get", "install", "-y", "-q", "libglu1-mesa", "libgl1"],
         check=True,
         stdout=subprocess.DEVNULL,
-        stderr=subprocess.STDOUT
-    )
-
-    subprocess.run([
-        "pip", "install", "-q",
-        "git+https://github.com/Fusion-Power-Plant-Framework/bluemira-spherical-tokamak",],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.STDOUT)
-
-    subprocess.run(
-        ["pip", "install", "-q",
-        "git+https://github.com/ukaea/PROCESS@v3.4.1",],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.STDOUT)
-
-    subprocess.run(
-        ["pip", "install", "-q", "marimo_cad",],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.STDOUT
+        stderr=subprocess.STDOUT,
     )
 
     subprocess.run(
-        ["pip", "install", "-q", "cadquery",],
+        [
+            "pip",
+            "install",
+            "-q",
+            "git+https://github.com/Fusion-Power-Plant-Framework/bluemira-spherical-tokamak",
+        ],
         stdout=subprocess.DEVNULL,
-        stderr=subprocess.STDOUT
+        stderr=subprocess.STDOUT,
+    )
+
+    subprocess.run(
+        [
+            "pip",
+            "install",
+            "-q",
+            "git+https://github.com/ukaea/PROCESS@v3.4.1",
+        ],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.STDOUT,
+    )
+
+    subprocess.run(
+        [
+            "pip",
+            "install",
+            "-q",
+            "marimo_cad",
+        ],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.STDOUT,
+    )
+
+    subprocess.run(
+        [
+            "pip",
+            "install",
+            "-q",
+            "cadquery",
+        ],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.STDOUT,
     )
 
 
 @app.cell(hide_code=True)
 def _():
-    import marimo_cad as cad
     from pathlib import Path
+
+    import marimo_cad as cad
     from bluemira_st.blanket.manager import BB
     from bluemira_st.build_routines import (
         build_bb,
@@ -175,13 +201,15 @@ def _(mo):
     ## Design parameters
     """)
 
+
 @app.cell(hide_code=True)
 def _():
     major_radius = mo.ui.text(value="4.5", label="R_0 (Major radius)")
     aspect_ratio = mo.ui.text(value="1.8", label="A (Aspect ratio)")
     n_PFs = mo.ui.text(value="10", label="Number of Poloidal Field Coils")
     n_TFs = mo.ui.text(value="12", label="Number of Toroidal Field Coils")
-    return(major_radius, aspect_ratio, n_PFs, n_TFs)
+    return (major_radius, aspect_ratio, n_PFs, n_TFs)
+
 
 @app.cell()
 def _():
@@ -485,7 +513,6 @@ def _():
 
 @app.cell(hide_code=True)
 def _(INDAT, params):
-    n_sectors = 9
     build_config = {
         "params": params,
         "radial_build": {
@@ -535,12 +562,6 @@ def _(INDAT, params):
                 "Casing": "Poloidal_Field_Coil",
             },
         },
-        "blanket": {
-            "n_sectors": n_sectors
-        },
-        "inboard_shield": {
-            "n_sectors": n_sectors
-        }
     }
     return (build_config,)
 
@@ -633,11 +654,20 @@ def _(
 
 @app.cell
 def _(reactor):
-    reactor_shapes = reactor.component().get_component("xyz").get_component_properties("shape", first=False)[
-        0
-    ]
+    reactor_shapes = reactor._build_component_tree(
+        "xyz",
+        reactor._init_construction_param_values(
+            kwargs=dict(n_sectors=12), c_params=None
+        ),
+    ).get_component_properties("shape", first=False)[0]
+
     reactor_shapes = [
-        {"shape": i._shape, "color": "pink" if i.label== 'LCFS' else "blue", "name": i.label} for i in reactor_shapes
+        {
+            "shape": i._shape,
+            "color": "pink" if i.label == "LCFS" else "blue",
+            "name": i.label,
+        }
+        for i in reactor_shapes
     ]
     return (reactor_shapes,)
 
