@@ -8,7 +8,8 @@ app = marimo.App(width="medium", auto_download=["html"])
 def _(mo):
     mo.md(r"""
     ## Initial set-up
-    RYou can run this notebook in cell mode or app mode! Click the icon below the save button (lower right) to toggle to app view. Press play to set up the install process and create a spherical tokamak using our default values.
+    Run this notebook in cell mode or app mode! Click the icon below the save button (lower right) to toggle to app view. Press play to set up the install process and create a spherical tokamak using our default values.
+    Most of the code has been hidden for easier reading, if you are interested in viewing the code click the cell to open it.
     """)
 
 
@@ -657,7 +658,7 @@ def _(
     return (reactor,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(reactor):
     reactor_shapes = reactor._build_component_tree(
         "xyz",
