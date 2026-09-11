@@ -208,12 +208,13 @@ def _():
     aspect_ratio = mo.ui.text(value="1.8", label="A (Aspect ratio)")
     n_PFs = mo.ui.text(value="10", label="Number of Poloidal Field Coils")
     n_TFs = mo.ui.text(value="12", label="Number of Toroidal Field Coils")
-    return (major_radius, aspect_ratio, n_PFs, n_TFs)
+    delta = mo.ui.text(value="0.5", label="delta (Triangularity)")
+    return (major_radius, aspect_ratio, n_PFs, n_TFs, delta)
 
 
 @app.cell()
 def _():
-    mo.vstack([major_radius, aspect_ratio, n_PFs, n_TFs])
+    mo.vstack([major_radius, aspect_ratio, delta, n_PFs, n_TFs])
 
 
 @app.cell(hide_code=True)
@@ -274,7 +275,7 @@ def _():
             "long_name": "Ratio of plasma pressure to poloidal magnetic pressure",
         },
         "delta": {
-            "value": 0.5,
+            "value": float(delta.value),
             "unit": "dimensionless",
             "source": "Input",
             "long_name": "Last closed surface plasma triangularity",
@@ -587,7 +588,7 @@ def _(BB, IS, PFCoil, Plasma, Reactor, TFCoil):
     return (MyReactor,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(
     BluemiraSTParams,
     MyReactor,
@@ -657,7 +658,7 @@ def _(reactor):
     reactor_shapes = reactor._build_component_tree(
         "xyz",
         reactor._init_construction_param_values(
-            kwargs=dict(n_sectors=12), c_params=None
+            kwargs=dict(n_sectors=n_TFs), c_params=None
         ),
     ).get_component_properties("shape", first=False)[0]
 
