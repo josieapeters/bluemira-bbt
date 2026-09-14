@@ -663,7 +663,7 @@ def _(reactor):
     reactor_shapes = reactor._build_component_tree(
         "xyz",
         reactor._init_construction_param_values(
-            kwargs=dict(n_sectors=n_TFs), c_params=None
+            kwargs=dict(n_sectors=int(n_TFs.value)), c_params=None
         ),
     ).get_component_properties("shape", first=False)[0]
 
