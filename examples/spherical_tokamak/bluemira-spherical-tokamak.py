@@ -8,11 +8,11 @@ app = marimo.App(width="medium", auto_download=["html"])
 def _(mo):
     mo.md(r"""
     ## Introduction
-    [`Bluemira`](https://github.com/Fusion-Power-Plant-Framework/bluemira) is an integrated inter-disciplinary design tool for future fusion reactors. It incorporates several modules, some of which rely on other codes, to carry out a range of typical conceptual fusion reactor design activities.
+    ###[`Bluemira`](https://github.com/Fusion-Power-Plant-Framework/bluemira) is an integrated inter-disciplinary design tool for future fusion reactors. It incorporates several modules to carry out a range of typical conceptual fusion reactor design activities.
 
-    This is our [Spherical Tokamak example](https://github.com/Fusion-Power-Plant-Framework/bluemira-spherical-tokamak), feel free to play around and see your different designs!
+    ####This notebook uses our [Spherical Tokamak example](https://github.com/Fusion-Power-Plant-Framework/bluemira-spherical-tokamak), feel free to play around and see your different designs!
 
-    If you'd like to learn more about what `bluemira` can do, head to our [GitHub repo](https://github.com/Fusion-Power-Plant-Framework/bluemira) and/or read our [Nuclear Fusion paper](https://iopscience.iop.org/article/10.1088/1741-4326/aea584)
+    ####If you'd like to learn more about what `bluemira` can do, head to our [GitHub repo](https://github.com/Fusion-Power-Plant-Framework/bluemira) and/or read our [Nuclear Fusion paper](https://iopscience.iop.org/article/10.1088/1741-4326/aea584)
     """)
 
 
