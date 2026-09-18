@@ -12,7 +12,7 @@ def _(mo):
 
     ####This notebook uses our [Spherical Tokamak example](https://github.com/Fusion-Power-Plant-Framework/bluemira-spherical-tokamak), feel free to play around and see your different designs!
 
-    ####If you'd like to learn more about what `bluemira` can do, head to our [GitHub repo](https://github.com/Fusion-Power-Plant-Framework/bluemira) and/or read our [Nuclear Fusion paper](https://iopscience.iop.org/article/10.1088/1741-4326/aea584)
+    ####If you'd like to learn more about `bluemira`, head to our [GitHub repo](https://github.com/Fusion-Power-Plant-Framework/bluemira) and/or read our [Nuclear Fusion paper](https://iopscience.iop.org/article/10.1088/1741-4326/aea584).
     """)
 
 
@@ -21,7 +21,9 @@ def _(mo):
     mo.md(r"""
     ## Initial set-up
     Run this notebook in cell mode or app mode! Click the icon below the save button (lower right) to toggle to app view.
+
     Press play to set up the install process and create a spherical tokamak using our default values.
+
     Most of the code has been hidden for easier reading, if you are interested in viewing the code - click the cell to open it.
     """)
 
