@@ -135,7 +135,6 @@ def _():
 
 
 def _():
-    from pathlib import Path
 
     import marimo_cad as cad
     from bluemira_st.blanket.manager import BB

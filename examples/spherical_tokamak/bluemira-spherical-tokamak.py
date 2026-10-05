@@ -3,6 +3,9 @@ import marimo
 __generated_with = "0.24.0"
 app = marimo.App(width="medium", auto_download=["html"])
 
+@app.cell()
+def _():
+    # Copyright (C) 2026-present The Bluemira Team - All Rights Reserved
 
 @app.cell(hide_code=True)
 def _(mo):
@@ -158,7 +161,7 @@ def _():
     from pathlib import Path
 
     import marimo_cad as cad
-    from bluemira_st.blanket.manager import BB
+    from bluemira_st.blanket.manager import BreedingBlanket
     from bluemira_st.build_routines import (
         build_bb,
         build_is,
@@ -217,7 +220,7 @@ def _(mo):
         ## Design parameters
         ### Run with default values first, then try adjusting some key parameters.
         - ${R_0}$ is the major radius, i.e. the distance from the centre of the tokamak to the centre of the plasma (pictured in pink in our model). A larger major radius will, unsurprisingly (!), mean a larger device. It will also increase the plasma volume.
-        - $A$ is the aspect ratio. This is the ratio major radius ${R_0}$ to the minor radius (i.e. the distance from the centre of the plasma, to the outer edge of the tokamak). The closer the aspect ratio is to 1, the tokamak is known as a spherical tokamak. Traditional tokamaks have higher aspect ratios. For example, JET's aspect ratio was ~3.
+        - $A$ is the aspect ratio. This is the ratio major radius ${R_0}$ to the minor radius (i.e. the distance from the centre of the plasma, to the outer edge of the tokamak). The closer the aspect ratio is to 1, the tokamak is known as a spherical tokamak.
         - ${\delta}$ is the triangularity of the plasma.
         - The number of Toroidal field coils, these are the rectangular magnets surrounding our other components. They confine the plasma and prevent it from expanding outwards.
     """)
@@ -595,13 +598,13 @@ def _(mo):
 
 
 @app.cell
-def _(BB, IS, PFCoil, Plasma, Reactor, TFCoil):
+def _(BreedingBlanket, IS, PFCoil, Plasma, Reactor, TFCoil):
     class MyReactor(Reactor):
         """A simple reactor."""
 
         plasma: Plasma
         tf_coil: TFCoil
-        blanket: BB
+        blanket: BreedingBlanket
         inboard_shield: IS
         pf_coil: PFCoil
 
