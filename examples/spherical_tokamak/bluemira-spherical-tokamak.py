@@ -155,6 +155,17 @@ def _():
         stderr=subprocess.STDOUT,
     )
 
+    subprocess.run(
+        [
+            "pip",
+            "install",
+            "-q",
+            "pint==0.25.3",
+        ],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.STDOUT,
+    )
+
 
 @app.cell(hide_code=True)
 def _():
